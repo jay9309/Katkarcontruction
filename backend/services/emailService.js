@@ -1,15 +1,27 @@
 const nodemailer = require("nodemailer");
 
+const gmailUser = process.env.EMAIL_USER;
+const gmailPassword = process.env.EMAIL_PASS || process.env.GMAIL_APP_PASSWORD;
+
 const transporter = nodemailer.createTransport({
-
-    service: "gmail",
-
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
     auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+        user: gmailUser,
+        pass: gmailPassword
     }
-
 });
+
+const verifyGmailCredentials = async () => {
+    try {
+        await transporter.verify();
+        return true;
+    } catch (error) {
+        console.error("Gmail SMTP verification failed:", error.message);
+        return false;
+    }
+};
 
 
 const sendContractorEmail = async (enquiry) => {
@@ -78,5 +90,6 @@ const sendCustomerThankYou = async (enquiry) => {
 
 module.exports = {
     sendContractorEmail,
-    sendCustomerThankYou
+    sendCustomerThankYou,
+    verifyGmailCredentials
 };
