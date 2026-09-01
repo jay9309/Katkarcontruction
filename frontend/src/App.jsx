@@ -1,5 +1,6 @@
 import "./App.css";
 import AppRoutes from "./routes/AppRoutes";
+import WhatsAppButton from "./components/WhatsAppButton";
 
 import {
     AuthProvider
@@ -13,6 +14,7 @@ function App() {
         <AuthProvider>
 
             <AppRoutes />
+            <WhatsAppButton />
 
         </AuthProvider>
     );
