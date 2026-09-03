@@ -1,157 +1,123 @@
 import { useState } from "react";
-
 import { useNavigate } from "react-router-dom";
-
 import { createProject } from "../../services/projectService";
-
 
 const AddProject = () => {
 
     const navigate = useNavigate();
 
-
     const [form, setForm] = useState({
-
         title: "",
-
         location: "",
-
         description: "",
-
-        status: "ongoing",
-
-        plans: "",
-
-        threeD: "",
-
-        elevation: "",
-
-        siteImages: ""
-
+        status: "ongoing"
     });
 
+    const [plans, setPlans] = useState([]);
+    const [threeD, setThreeD] = useState([]);
+    const [elevation, setElevation] = useState([]);
+    const [projection, setProjection] = useState([]);
+    const [siteImages, setSiteImages] = useState([]);
 
-    const [loading, setLoading] =
-        useState(false);
-
-    const [error, setError] =
-        useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
 
+    // ==========================
+    // HANDLE TEXT INPUT
+    // ==========================
 
     const handleChange = (e) => {
 
         setForm({
-
             ...form,
-
-            [e.target.name]:
-                e.target.value
-
+            [e.target.name]: e.target.value
         });
-    };
-
-
-
-    const convertToArray = (value) => {
-
-        return value
-            .split(",")
-            .map((item) => item.trim())
-            .filter((item) => item !== "");
 
     };
 
 
+    // ==========================
+    // HANDLE SUBMIT
+    // ==========================
 
     const handleSubmit = async (e) => {
 
         e.preventDefault();
 
         setError("");
-
         setLoading(true);
-
 
         try {
 
-            const projectData = {
-
-                title: form.title,
-
-                location: form.location,
-
-                description:
-                    form.description,
-
-                status: form.status,
-
-                plans:
-                    convertToArray(
-                        form.plans
-                    ),
-
-                threeD:
-                    convertToArray(
-                        form.threeD
-                    ),
-
-                elevation:
-                    convertToArray(
-                        form.elevation
-                    ),
-
-                siteImages:
-                    convertToArray(
-                        form.siteImages
-                    )
-
-            };
+            const formData = new FormData();
 
 
-            const token =
-                localStorage.getItem("token");
+            // TEXT DATA
+            formData.append("title", form.title);
+            formData.append("location", form.location);
+            formData.append("description", form.description);
+            formData.append("status", form.status);
+
+
+            // IMAGES
+            plans.forEach((file) => {
+                formData.append("plans", file);
+            });
+
+            threeD.forEach((file) => {
+                formData.append("threeD", file);
+            });
+
+            elevation.forEach((file) => {
+                formData.append("elevation", file);
+            });
+
+            projection.forEach((file) => {
+                formData.append("projection", file);
+            });
+
+            siteImages.forEach((file) => {
+                formData.append("siteImages", file);
+            });
+
+
+            const token = localStorage.getItem("token");
 
 
             await createProject(
-                projectData,
+                formData,
                 token
             );
 
 
-            alert(
-                "Project created successfully!"
-            );
+            alert("Project created successfully!");
 
 
-            navigate(
-                "/admin/projects"
-            );
+            navigate("/admin/projects");
 
 
         } catch (error) {
 
-            console.error(error);
+            console.error("ADD PROJECT ERROR:", error);
 
             setError(
-                error.response
-                    ?.data
-                    ?.message ||
+                error.response?.data?.message ||
                 "Failed to create project."
             );
 
         } finally {
 
             setLoading(false);
-        }
-    };
 
+        }
+
+    };
 
 
     return (
 
         <div className="admin-form-page">
-
 
             <div className="admin-page-header">
 
@@ -162,14 +128,12 @@ const AddProject = () => {
                     </h2>
 
                     <p>
-                        Add a new construction
-                        project to your website.
+                        Add a new construction project to your website.
                     </p>
 
                 </div>
 
             </div>
-
 
 
             {error && (
@@ -179,7 +143,6 @@ const AddProject = () => {
                 </div>
 
             )}
-
 
 
             <form
@@ -200,15 +163,12 @@ const AddProject = () => {
                         type="text"
                         name="title"
                         value={form.title}
-                        onChange={
-                            handleChange
-                        }
+                        onChange={handleChange}
                         placeholder="Example: Modern Villa"
                         required
                     />
 
                 </div>
-
 
 
                 {/* LOCATION */}
@@ -223,15 +183,12 @@ const AddProject = () => {
                         type="text"
                         name="location"
                         value={form.location}
-                        onChange={
-                            handleChange
-                        }
+                        onChange={handleChange}
                         placeholder="Example: Pune, Maharashtra"
                         required
                     />
 
                 </div>
-
 
 
                 {/* STATUS */}
@@ -245,9 +202,7 @@ const AddProject = () => {
                     <select
                         name="status"
                         value={form.status}
-                        onChange={
-                            handleChange
-                        }
+                        onChange={handleChange}
                     >
 
                         <option value="upcoming">
@@ -267,7 +222,6 @@ const AddProject = () => {
                 </div>
 
 
-
                 {/* DESCRIPTION */}
 
                 <div className="form-group">
@@ -278,12 +232,8 @@ const AddProject = () => {
 
                     <textarea
                         name="description"
-                        value={
-                            form.description
-                        }
-                        onChange={
-                            handleChange
-                        }
+                        value={form.description}
+                        onChange={handleChange}
                         placeholder="Describe the project..."
                         rows="6"
                         required
@@ -292,33 +242,30 @@ const AddProject = () => {
                 </div>
 
 
-
                 {/* PLANS */}
 
                 <div className="form-group">
 
                     <label>
-                        Plan Image URLs
+                        Plan Images
                     </label>
 
-                    <textarea
-                        name="plans"
-                        value={form.plans}
-                        onChange={
-                            handleChange
+                    <input
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        onChange={(e) =>
+                            setPlans(
+                                Array.from(e.target.files)
+                            )
                         }
-                        placeholder="Paste image URLs separated by commas"
-                        rows="3"
                     />
 
                     <small>
-                        Example:
-                        https://image1.jpg,
-                        https://image2.jpg
+                        You can select multiple plan images.
                     </small>
 
                 </div>
-
 
 
                 {/* 3D */}
@@ -326,21 +273,25 @@ const AddProject = () => {
                 <div className="form-group">
 
                     <label>
-                        3D Design Image URLs
+                        3D Design Images
                     </label>
 
-                    <textarea
-                        name="threeD"
-                        value={form.threeD}
-                        onChange={
-                            handleChange
+                    <input
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        onChange={(e) =>
+                            setThreeD(
+                                Array.from(e.target.files)
+                            )
                         }
-                        placeholder="Paste 3D image URLs separated by commas"
-                        rows="3"
                     />
 
-                </div>
+                    <small>
+                        You can select multiple 3D images.
+                    </small>
 
+                </div>
 
 
                 {/* ELEVATION */}
@@ -348,23 +299,43 @@ const AddProject = () => {
                 <div className="form-group">
 
                     <label>
-                        Elevation Image URLs
+                        Elevation Images
                     </label>
 
-                    <textarea
-                        name="elevation"
-                        value={
-                            form.elevation
+                    <input
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        onChange={(e) =>
+                            setElevation(
+                                Array.from(e.target.files)
+                            )
                         }
-                        onChange={
-                            handleChange
-                        }
-                        placeholder="Paste elevation image URLs separated by commas"
-                        rows="3"
                     />
 
                 </div>
 
+
+                {/* PROJECTION */}
+
+                <div className="form-group">
+
+                    <label>
+                        Projection Images
+                    </label>
+
+                    <input
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        onChange={(e) =>
+                            setProjection(
+                                Array.from(e.target.files)
+                            )
+                        }
+                    />
+
+                </div>
 
 
                 {/* SITE IMAGES */}
@@ -372,23 +343,25 @@ const AddProject = () => {
                 <div className="form-group">
 
                     <label>
-                        Construction Site Image URLs
+                        Construction Site Images
                     </label>
 
-                    <textarea
-                        name="siteImages"
-                        value={
-                            form.siteImages
+                    <input
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        onChange={(e) =>
+                            setSiteImages(
+                                Array.from(e.target.files)
+                            )
                         }
-                        onChange={
-                            handleChange
-                        }
-                        placeholder="Paste site image URLs separated by commas"
-                        rows="3"
                     />
 
-                </div>
+                    <small>
+                        You can select multiple construction site images.
+                    </small>
 
+                </div>
 
 
                 {/* BUTTONS */}
@@ -399,9 +372,7 @@ const AddProject = () => {
                         type="button"
                         className="admin-secondary-button"
                         onClick={() =>
-                            navigate(
-                                "/admin/projects"
-                            )
+                            navigate("/admin/projects")
                         }
                     >
                         Cancel
@@ -415,7 +386,7 @@ const AddProject = () => {
                     >
 
                         {loading
-                            ? "Creating..."
+                            ? "Uploading..."
                             : "Create Project"}
 
                     </button>
@@ -426,8 +397,9 @@ const AddProject = () => {
             </form>
 
         </div>
-    );
-};
 
+    );
+
+};
 
 export default AddProject;
