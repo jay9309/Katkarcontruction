@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
+import logo from "../assets/logo.png";
 
 import {
     FaWhatsapp,
     FaInstagram,
     FaFacebook,
+    FaYoutube,
     FaEnvelope,
     FaPhone,
     FaMapMarkerAlt
@@ -17,7 +19,19 @@ const Footer = () => {
 
     return (
 
-        <footer className="footer">
+        <>
+            <section className="footer-cta">
+                <div>
+                    <strong>Have a project in mind?</strong>
+                    <span>Let&apos;s build something great together.</span>
+                </div>
+
+                <Link to="/contact" className="footer-cta-button">
+                    Contact Us Today
+                </Link>
+            </section>
+
+            <footer className="footer">
 
             <div className="footer-container">
 
@@ -26,9 +40,11 @@ const Footer = () => {
 
                 <div className="footer-column">
 
-                    <h2>
-                        Katkar Constructions
-                    </h2>
+                    <img
+                        className="footer-logo"
+                        src={logo}
+                        alt="Katkar Constructions"
+                    />
 
                     <p>
                         Building quality spaces with
@@ -42,7 +58,7 @@ const Footer = () => {
                     <div className="footer-social">
 
                         <a
-                            href="https://wa.me/919999999999"
+                            href="https://wa.me/918989070745"
                             target="_blank"
                             rel="noreferrer"
                             aria-label="WhatsApp"
@@ -52,7 +68,7 @@ const Footer = () => {
 
 
                         <a
-                            href="https://www.instagram.com/"
+                            href="https://www.instagram.com/katkar_constructions?igsi=NTg3Z2pyNm50MXlu"
                             target="_blank"
                             rel="noreferrer"
                             aria-label="Instagram"
@@ -62,12 +78,22 @@ const Footer = () => {
 
 
                         <a
-                            href="https://www.facebook.com/"
+                            href="https://www.facebook.com/share/1D6TJTstb1/"
                             target="_blank"
                             rel="noreferrer"
                             aria-label="Facebook"
                         >
                             <FaFacebook />
+                        </a>
+
+
+                        <a
+                            href="https://youtube.com/@katkarconstructions?si=BV9sG5F0mK6Vcvxn"
+                            target="_blank"
+                            rel="noreferrer"
+                            aria-label="YouTube"
+                        >
+                            <FaYoutube />
                         </a>
 
                     </div>
@@ -111,25 +137,29 @@ const Footer = () => {
                 </div>
 
 
-                {/* PROJECTS */}
+                {/* SERVICES */}
 
                 <div className="footer-column">
 
                     <h3>
-                        Our Projects
+                        Our Services
                     </h3>
 
 
-                    <Link to="/projects/upcoming">
-                        Upcoming Projects
+                    <Link to="/services">
+                        Residential Projects
                     </Link>
 
-                    <Link to="/projects/ongoing">
-                        Ongoing Projects
+                    <Link to="/services">
+                        Commercial Spaces
                     </Link>
 
-                    <Link to="/projects/completed">
-                        Completed Projects
+                    <Link to="/services">
+                        Architecture Design
+                    </Link>
+
+                    <Link to="/services">
+                        Construction Management
                     </Link>
 
                 </div>
@@ -178,7 +208,7 @@ const Footer = () => {
                         <FaWhatsapp />
 
                         <a
-                            href="https://wa.me/919999999999"
+                            href="https://wa.me/918989070745"
                             target="_blank"
                             rel="noreferrer"
                         >
@@ -197,13 +227,14 @@ const Footer = () => {
             <div className="footer-bottom">
 
                 <p>
-                    © {currentYear} Katkar Constructions.
+                    © {currentYear} Jay Kashid.
                     All Rights Reserved.
                 </p>
 
             </div>
 
-        </footer>
+            </footer>
+        </>
     );
 };
 

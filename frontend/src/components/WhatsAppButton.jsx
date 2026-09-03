@@ -2,7 +2,7 @@ import { FaWhatsapp } from "react-icons/fa";
 
 const WhatsAppButton = () => {
 
-    const phoneNumber = "919876543210"; // CHANGE THIS NUMBER
+    const phoneNumber = "918989070745";
 
     const message =
         "Hello Katkar Constructions, I am interested in your construction services.";
