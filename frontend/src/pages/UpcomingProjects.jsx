@@ -24,7 +24,12 @@ const UpcomingProjects = () => {
     }, []);
 
     if (loading) {
-        return <h2>Loading upcoming projects...</h2>;
+        return (
+            <>
+                <Navbar />
+                <h2>Loading upcoming projects...</h2>
+            </>
+        );
     }
 
     return (

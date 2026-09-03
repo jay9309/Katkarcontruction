@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import ProjectCard from "../components/ProjectCard";
+import Navbar from "../components/Navbar";
 
 import {
     getProjectsByStatus
@@ -45,15 +46,22 @@ const OngoingProjects = () => {
 
     if (loading) {
 
-        return <h2>Loading projects...</h2>;
+        return (
+            <>
+                <Navbar />
+                <h2>Loading projects...</h2>
+            </>
+        );
     }
 
 
     return (
+        <>
+            <Navbar />
 
-        <section>
+            <section>
 
-            <h1>Ongoing Projects</h1>
+                <h1>Ongoing Projects</h1>
 
 
             {projects.length === 0 ? (
@@ -78,7 +86,8 @@ const OngoingProjects = () => {
                 </div>
             )}
 
-        </section>
+            </section>
+        </>
     );
 };
 
