@@ -10,7 +10,7 @@ import {
     FaShieldAlt,
     FaUsers
 } from "react-icons/fa";
-import heroImage from "../assets/Hero.png";
+import heroImage from "../assets/hero.png";
 import katkarSirImage from "../assets/katkar sir.jpeg";
 import shreyashImage from "../assets/Sk.jpeg";
 import patilImage from "../assets/jay.png";
