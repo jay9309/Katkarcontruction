@@ -11,6 +11,9 @@ import {
     FaUsers
 } from "react-icons/fa";
 import heroImage from "../assets/Hero.png";
+import katkarSirImage from "../assets/katkar sir.jpeg";
+import shreyashImage from "../assets/Sk.jpeg";
+import patilImage from "../assets/jay.png";
 
 const highlights = [
     { icon: FaBuilding, value: "150+", label: "Projects completed" },
@@ -115,9 +118,9 @@ const About = () => {
                         <h2>Experienced professionals</h2>
                         <p>Our team of skilled engineers, architects, and project managers work together to deliver projects that exceed expectations.</p>
                         <div className="about-team-list">
-                            <div><span className="team-avatar">SK</span><strong>Katkar Sir</strong><small>Founder &amp; Director</small></div>
-                            <div><span className="team-avatar">RD</span><strong>Shreyash Katkar</strong><small>Project Manager</small></div>
-                            <div><span className="team-avatar">PP</span><strong> Patil</strong><small>Site Engineer</small></div>
+                            <div><span className="team-avatar"><img src={katkarSirImage} alt="Katkar Sir" /></span><strong>Katkar Sir</strong><small>Founder &amp; Director</small></div>
+                            <div><span className="team-avatar"><img src={shreyashImage} alt="Shreyash Katkar" /></span><strong>Shreyash Katkar</strong><small>Project Manager</small></div>
+                            <div><span className="team-avatar"><img src={patilImage} alt="Patil" /></span><strong>Jay Kashid </strong><small>Site Engineer</small></div>
                         </div>
                     </div>
                 </section>
