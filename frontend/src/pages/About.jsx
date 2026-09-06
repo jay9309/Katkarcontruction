@@ -115,8 +115,8 @@ const About = () => {
                         <h2>Experienced professionals</h2>
                         <p>Our team of skilled engineers, architects, and project managers work together to deliver projects that exceed expectations.</p>
                         <div className="about-team-list">
-                            <div><span className="team-avatar">SK</span><strong>Shreyash Katkar</strong><small>Founder &amp; Director</small></div>
-                            <div><span className="team-avatar">RD</span><strong>Katkar Sir</strong><small>Project Manager</small></div>
+                            <div><span className="team-avatar">SK</span><strong>Katkar Sir</strong><small>Founder &amp; Director</small></div>
+                            <div><span className="team-avatar">RD</span><strong>Shreyash Katkar</strong><small>Project Manager</small></div>
                             <div><span className="team-avatar">PP</span><strong> Patil</strong><small>Site Engineer</small></div>
                         </div>
                     </div>

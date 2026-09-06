@@ -994,7 +994,7 @@ body {
     color: #f5b942;
 }
 
-.navbar-links a[href="/about"] {
+.navbar-links a.active {
     color: #e9a91f;
     border-bottom: 2px solid #e9a91f;
     border-radius: 0;

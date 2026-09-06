@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import logo from "../assets/logo.png";
 
@@ -41,54 +41,55 @@ const Navbar = () => {
                 }`}
             >
 
-                <Link
+                <NavLink
                     to="/"
+                    end
                     onClick={() => setMenuOpen(false)}
                 >
                     Home
-                </Link>
+                </NavLink>
 
-                <Link
+                <NavLink
                     to="/about"
                     onClick={() => setMenuOpen(false)}
                 >
                     About
-                </Link>
+                </NavLink>
 
-                <Link
+                <NavLink
                     to="/services"
                     onClick={() => setMenuOpen(false)}
                 >
                     Services
-                </Link>
+                </NavLink>
 
-                <Link
+                <NavLink
                     to="/projects/upcoming"
                     onClick={() => setMenuOpen(false)}
                 >
                     Upcoming
-                </Link>
+                </NavLink>
 
-                <Link
+                <NavLink
                     to="/projects/ongoing"
                     onClick={() => setMenuOpen(false)}
                 >
                     Ongoing
-                </Link>
+                </NavLink>
 
-                <Link
+                <NavLink
                     to="/projects/completed"
                     onClick={() => setMenuOpen(false)}
                 >
                     Completed
-                </Link>
+                </NavLink>
 
-                <Link
+                <NavLink
                     to="/contact"
                     onClick={() => setMenuOpen(false)}
                 >
                     Contact
-                </Link>
+                </NavLink>
 
             </div>
 
