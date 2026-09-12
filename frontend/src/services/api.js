@@ -1,7 +1,11 @@
 import axios from "axios";
 
+const apiBaseUrl =
+    import.meta.env.VITE_API_URL ||
+    "https://katkarcontruction.vercel.app/api";
+
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL
+    baseURL: apiBaseUrl
 });
 
 export default api;
