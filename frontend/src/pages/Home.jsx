@@ -14,42 +14,48 @@ import {
 
 const Home = () => {
 
+    const [upcomingProjects, setUpcomingProjects] = useState([]);
     const [ongoingProjects, setOngoingProjects] = useState([]);
 
+    const [loadingUpcomingProjects, setLoadingUpcomingProjects] = useState(true);
     const [loadingProjects, setLoadingProjects] = useState(true);
 
 
     // ==========================================
-    // FETCH ONGOING PROJECTS
+    // FETCH PROJECTS
     // ==========================================
 
     useEffect(() => {
 
-        const fetchOngoingProjects = async () => {
+        const fetchProjects = async () => {
 
             try {
 
-                const data =
-                    await getProjectsByStatus("ongoing");
+                const [upcomingData, ongoingData] = await Promise.all([
+                    getProjectsByStatus("upcoming"),
+                    getProjectsByStatus("ongoing")
+                ]);
 
-                setOngoingProjects(data);
+                setUpcomingProjects(upcomingData);
+                setOngoingProjects(ongoingData);
 
             } catch (error) {
 
                 console.error(
-                    "Failed to fetch ongoing projects:",
+                    "Failed to fetch projects:",
                     error
                 );
 
             } finally {
 
+                setLoadingUpcomingProjects(false);
                 setLoadingProjects(false);
 
             }
         };
 
 
-        fetchOngoingProjects();
+        fetchProjects();
 
     }, []);
 
@@ -64,6 +70,142 @@ const Home = () => {
 
 
             <main>
+
+                {/* =====================================
+                    UPCOMING PROJECTS
+                ====================================== */}
+
+                <section className="page-section">
+
+                    <SectionTitle
+                        subtitle="Coming soon"
+                        title="Upcoming Projects"
+                        description="Get a preview of the projects we are preparing to launch next."
+                    />
+
+                    {loadingUpcomingProjects ? (
+
+                        <p>
+                            Loading upcoming projects...
+                        </p>
+
+                    ) : upcomingProjects.length === 0 ? (
+
+                        <p>
+                            No upcoming projects available.
+                        </p>
+
+                    ) : (
+
+                        <div className="projects-grid">
+
+                            {upcomingProjects
+                                .slice(0, 3)
+                                .map((project) => (
+
+                                    <ProjectCard
+                                        key={project._id}
+                                        project={project}
+                                    />
+
+                                ))}
+
+                        </div>
+
+                    )}
+
+                    {upcomingProjects.length > 0 && (
+
+                        <div
+                            className="hero-buttons"
+                            style={{
+                                marginTop: "30px"
+                            }}
+                        >
+
+                            <Link
+                                to="/projects/upcoming"
+                                className="hero-btn primary-btn"
+                            >
+                                View All Upcoming Projects
+                            </Link>
+
+                        </div>
+
+                    )}
+
+                </section>
+
+
+
+                {/* =====================================
+                    ONGOING PROJECTS
+                ====================================== */}
+
+                <section className="page-section">
+
+                    <SectionTitle
+                        subtitle="Currently working"
+                        title="Ongoing Projects"
+                        description="Take a look at the construction projects we are currently working on."
+                    />
+
+
+                    {loadingProjects ? (
+
+                        <p>
+                            Loading ongoing projects...
+                        </p>
+
+                    ) : ongoingProjects.length === 0 ? (
+
+                        <p>
+                            No ongoing projects available.
+                        </p>
+
+                    ) : (
+
+                        <div className="projects-grid">
+
+                            {ongoingProjects
+                                .slice(0, 3)
+                                .map((project) => (
+
+                                    <ProjectCard
+                                        key={project._id}
+                                        project={project}
+                                    />
+
+                                ))}
+
+                        </div>
+
+                    )}
+
+
+                    {ongoingProjects.length > 0 && (
+
+                        <div
+                            className="hero-buttons"
+                            style={{
+                                marginTop: "30px"
+                            }}
+                        >
+
+                            <Link
+                                to="/projects/ongoing"
+                                className="hero-btn primary-btn"
+                            >
+                                View All Ongoing Projects
+                            </Link>
+
+                        </div>
+
+                    )}
+
+                </section>
+
+
 
                 {/* =====================================
                     SERVICES SECTION
@@ -123,112 +265,6 @@ const Home = () => {
                             </p>
 
                         </div>
-
-                    </div>
-
-                </section>
-
-
-
-                {/* =====================================
-                    ONGOING PROJECTS
-                ====================================== */}
-
-                <section className="page-section">
-
-                    <SectionTitle
-                        subtitle="Currently working"
-                        title="Ongoing Projects"
-                        description="Take a look at the construction projects we are currently working on."
-                    />
-
-
-                    {loadingProjects ? (
-
-                        <p>
-                            Loading ongoing projects...
-                        </p>
-
-                    ) : ongoingProjects.length === 0 ? (
-
-                        <p>
-                            No ongoing projects available.
-                        </p>
-
-                    ) : (
-
-                        <div className="projects-grid">
-
-                            {ongoingProjects
-                                .slice(0, 3)
-                                .map((project) => (
-
-                                    <ProjectCard
-                                        key={project._id}
-                                        project={project}
-                                    />
-
-                                ))}
-
-                        </div>
-
-                    )}
-
-
-                    {/* VIEW ALL BUTTON */}
-
-                    {ongoingProjects.length > 0 && (
-
-                        <div
-                            className="hero-buttons"
-                            style={{
-                                marginTop: "30px"
-                            }}
-                        >
-
-                            <Link
-                                to="/projects/ongoing"
-                                className="hero-btn primary-btn"
-                            >
-                                View All Ongoing Projects
-                            </Link>
-
-                        </div>
-
-                    )}
-
-                </section>
-
-
-
-                {/* =====================================
-                    EXPLORE PROJECTS
-                ====================================== */}
-
-                <section className="page-section">
-
-                    <SectionTitle
-                        subtitle="Our projects"
-                        title="Explore our work"
-                    />
-
-
-                    <div className="hero-buttons">
-
-                        <Link
-                            to="/projects/ongoing"
-                            className="hero-btn primary-btn"
-                        >
-                            Ongoing Projects
-                        </Link>
-
-
-                        <Link
-                            to="/projects/completed"
-                            className="hero-btn secondary-btn"
-                        >
-                            Completed Projects
-                        </Link>
 
                     </div>
 

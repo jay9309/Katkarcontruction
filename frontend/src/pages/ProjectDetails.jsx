@@ -87,11 +87,6 @@ const ProjectDetails = () => {
 
                 <div className="project-detail-layout">
                     <div className="project-detail-main">
-                        <nav className="project-detail-tabs" aria-label="Project sections">
-                            <a href="#overview">Overview</a>
-                            {gallerySections.map((section) => <a href={`#${section.label.replace(" ", "-").toLowerCase()}`} key={section.title}>{section.title}</a>)}
-                        </nav>
-
                         <section className="project-overview" id="overview">
                             <p className="project-detail-kicker">Project overview</p>
                             <h2>Designed for the way you live.</h2>
@@ -121,23 +116,6 @@ const ProjectDetails = () => {
                             </section>
                         ))}
                     </div>
-
-                    <aside className="project-detail-sidebar">
-                        <section className="project-info-card">
-                            <h2>Project details</h2>
-                            <div><FaBuilding /><span><small>Project name</small><strong>{project.title}</strong></span></div>
-                            <div><FaMapMarkerAlt /><span><small>Location</small><strong>{project.location}</strong></span></div>
-                            <div><FaClock /><span><small>Status</small><strong className="project-info-status">{project.status}</strong></span></div>
-                            <div><FaRulerCombined /><span><small>Gallery images</small><strong>{gallerySections.reduce((total, section) => total + section.images.length, 0)} uploaded</strong></span></div>
-                            <div><FaCalendarAlt /><span><small>Last updated</small><strong>{new Date(project.updatedAt || project.createdAt).toLocaleDateString()}</strong></span></div>
-                        </section>
-                        <section className="project-contact-card">
-                            <h2>Interested in this project?</h2>
-                            <p>Get in touch with us for more information or a site visit.</p>
-                            <Link to="/contact">Get a quote</Link>
-                            <Link to="/contact" className="project-contact-outline">Schedule a visit</Link>
-                        </section>
-                    </aside>
                 </div>
             </main>
 
