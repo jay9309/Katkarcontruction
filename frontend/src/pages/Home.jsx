@@ -6,6 +6,7 @@ import Hero from "../components/Hero";
 import SectionTitle from "../components/SectionTitle";
 import Footer from "../components/Footer";
 import ProjectCard from "../components/ProjectCard";
+import KatkarConstructionLogo from "../assets/Katkarconstruction.png";
 
 import {
     getProjectsByStatus
@@ -202,6 +203,56 @@ const Home = () => {
                         </div>
 
                     )}
+
+                </section>
+
+
+                <section className="home-about-section">
+
+                    <div className="home-about-panel">
+
+                        <div className="home-about-logo">
+                            <img
+                                src={KatkarConstructionLogo}
+                                alt="Katkar Constructions — Building Trust. Creating Futures."
+                            />
+                        </div>
+
+                        <div className="home-about-copy">
+                            <p className="home-about-eyebrow">
+                                Building trust. Creating futures.
+                            </p>
+
+                            <h2>
+                                Do better, dream bigger &amp; create a better future.
+                            </h2>
+
+                            <p>
+                                Katkar Construction is synonymous with quality and timely
+                                delivery. For over 12 years, we have raised the standard of
+                                real estate development in Akluj, delivering landmark
+                                projects and earning the trust of our customers. Today, we
+                                are proud to be one of Akluj&apos;s leading builders and
+                                developers.
+                            </p>
+
+                            <div className="home-about-highlights">
+                                <div>
+                                    <strong>12+</strong>
+                                    <span>Years of experience</span>
+                                </div>
+                                <div>
+                                    <strong>Quality</strong>
+                                    <span>Built to last</span>
+                                </div>
+                                <div>
+                                    <strong>On time</strong>
+                                    <span>Delivery you can trust</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
 
                 </section>
 
